@@ -5,12 +5,12 @@ contract Poll {
     struct Voter {
         address sender; // person delegated to
         uint vote;   // index of the voted proposal
-        bytes32 name;
+        string name;
     }
 
     // This is a type for a single proposal.
     struct Proposal {
-        bytes32 name;   // short name (up to 32 bytes)
+        string  name;   // short name (up to 32 bytes)
         uint voteCount; // number of accumulated votes
     }
 
@@ -26,7 +26,7 @@ contract Poll {
     Proposal[] public proposalsWithoutVotes;
 
     /// Create a new ballot to choose one of `proposalNames`.
-    function newPoll(bytes32[] memory proposalNames) public {
+    function newPoll(string[] memory proposalNames) public {
         require(pollCreator == address(0), "Poll already running");
         pollCreator = msg.sender;
 
@@ -45,7 +45,7 @@ contract Poll {
 
     /// Give your vote (including votes delegated to you)
     /// to proposal `proposals[proposal].name`.
-    function vote(bytes32 name, uint proposal) public {
+    function vote(string memory name, uint proposal) public {
         for (uint i = 0; i < voters.length; i++) {
             if (voters[i].sender == msg.sender) {
                 require(false, "Already voted.");
