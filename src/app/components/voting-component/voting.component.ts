@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {GalleryService} from "../../services/gallery.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -14,11 +14,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class VotingComponent implements OnInit {
 
 
-    public proposals: any[] = ["A", "B", "C"]
-    private selectedProposal: { name: string, index: number } = {
-        name: "",
-        index: 0
-    }
+    public proposals: any[] = ["A", "B", "C"];
+    public selectedProposal: any;
+    public username:undefined
 
     form = new FormGroup({
         proposal: new FormControl('', Validators.required)
@@ -37,7 +35,6 @@ export class VotingComponent implements OnInit {
 
 
     sendVote() {
-
 
         //   this.gallery.sendProposal(this.selectedProposal)
     }
