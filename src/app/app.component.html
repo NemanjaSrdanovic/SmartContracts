@@ -1,13 +1,10 @@
-  <span>Image Gallery</span>
+  <span>Smart Contract Votah</span>
 
   <div>
-    <input type="number" #num />
-    <button mat-button (click)="setNumber()">Set</button>
-    <button mat-button (click)="getNumber()">Get</button>
-    <div>{{ receivedNumber }}</div>
+    <button mat-button routerLink="/chair-person" routerLinkActive="active">Chair Person</button>
+    <button mat-button routerLink="/vote" routerLinkActive="active">Vote</button>
   </div>
 
-
-
-  <voting-component></voting-component>
-
+  <main>
+    <router-outlet></router-outlet>
+  </main>

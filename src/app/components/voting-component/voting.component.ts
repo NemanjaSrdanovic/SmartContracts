@@ -14,9 +14,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class VotingComponent implements OnInit {
 
 
-    public proposals: any[] = ["A", "B", "C"];
+    public proposals: any[] = [];
     public selectedProposal: any;
-    public username:undefined
+    public username: string;
 
     form = new FormGroup({
         proposal: new FormControl('', Validators.required)
@@ -29,18 +29,19 @@ export class VotingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getProposals();
+    }
 
-        //   this.proposals=this.gallery.getProposals()
+    async getProposals() {
+        this.proposals = await this.gallery.getProposals();
     }
 
 
     sendVote() {
-
-        //   this.gallery.sendProposal(this.selectedProposal)
+        this.gallery.addVote(this.username, this.selectedProposal.index);
     }
 
     public setSelectProposal(selected: any, index: number) {
-
         this.selectedProposal = {name:  selected, index: index}
     }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ethers } from "ethers";
 import { environment } from "../../environments/environment";
-import Gallery from '../../../artifacts/contracts/Gallery.sol/SimpleStorage.json'
+import Gallery from '../../../artifacts/contracts/Gallery.sol/Poll.json'
 import detectEthereumProvider from "@metamask/detect-provider";
 
 @Injectable({
@@ -9,16 +9,53 @@ import detectEthereumProvider from "@metamask/detect-provider";
 })
 export class GalleryService {
 
-  public async getNumber(): Promise<number> {
+  public async getPollActive(): Promise<boolean> {
     const contract = await GalleryService.getContract(true)
 
-    return await contract['get']()
+    return await contract['pollIsActive']()
   }
 
-  public async addNumber(num: number): Promise<boolean> {
+  public async startPoll(options: string[]): Promise<boolean> {
     const contract = await GalleryService.getContract(true)
-    const transaction = await contract['set'](
-      num,
+    const transaction = await contract['newPoll'](
+      options
+    )
+    const tx = await transaction.wait()
+
+    return tx.status === 1
+  }
+
+  public async closePoll(): Promise<boolean> {
+    const contract = await GalleryService.getContract(true)
+    const transaction = await contract['closePoll']()
+    const tx = await transaction.wait()
+
+    return tx.status === 1
+  }
+
+  public async getProposals(): Promise<any[]> {
+    const contract = await GalleryService.getContract(true)
+
+    return await contract['getProposals']()
+  }
+
+  public async getProposalsWithVotes(): Promise<any[]> {
+    const contract = await GalleryService.getContract(true)
+
+    return await contract['getProposalsWithVotes']()
+  }
+
+  public async getVotes(): Promise<any[]> {
+    const contract = await GalleryService.getContract(true)
+
+    return await contract['getVoters']()
+  }
+
+  public async addVote(name: string, selectedOption: number): Promise<boolean> {
+    const contract = await GalleryService.getContract(true)
+    const transaction = await contract['vote'](
+        name,
+        selectedOption
     )
     const tx = await transaction.wait()
 
