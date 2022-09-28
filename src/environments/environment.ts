@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  contractAddress: '0x84dc67fA01076073f4FAB1224Fe91eB0C42663E5',
+  contractAddress: '0x32827A69d3fb8d4a837a32B8c0FA34Ca81e095B9',
   ipfs: 'https://ipfs.infura.io'
 };
 
