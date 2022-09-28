@@ -1,30 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ethers } from "ethers";
 import { environment } from "../../environments/environment";
-import Gallery from '../../../artifacts/contracts/Gallery.sol/Gallery.json'
+import Gallery from '../../../artifacts/contracts/Gallery.sol/SimpleStorage.json'
 import detectEthereumProvider from "@metamask/detect-provider";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GalleryService {
-  public async getAllImages(): Promise<any[]> {
-    const contract = await GalleryService.getContract()
 
-    return await contract['retrieveAllImages']()
-  }
-
-  public async getImagesByAuthor(): Promise<any[]> {
+  public async getNumber(): Promise<number> {
     const contract = await GalleryService.getContract(true)
 
-    return await contract['retrieveImagesByAuthor']()
+    return await contract['get']()
   }
 
-  public async addImage(title: string, fileUrl: string): Promise<boolean> {
+  public async addNumber(num: number): Promise<boolean> {
     const contract = await GalleryService.getContract(true)
-    const transaction = await contract['store'](
-      title,
-      fileUrl
+    const transaction = await contract['set'](
+      num,
     )
     const tx = await transaction.wait()
 
