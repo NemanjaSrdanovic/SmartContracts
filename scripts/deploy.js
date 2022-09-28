@@ -1,7 +1,7 @@
 const hre = require('hardhat')
 
 async function main() {
-  const Gallery = await hre.ethers.getContractFactory('SimpleStorage')
+  const Gallery = await hre.ethers.getContractFactory('Poll')
   const gallery = await Gallery.deploy()
   await gallery.deployed()
 
