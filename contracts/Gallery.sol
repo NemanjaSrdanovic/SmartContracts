@@ -87,6 +87,7 @@ contract Poll {
         delete proposals;
         delete pollCreator;
         delete pollName;
+        delete voters;
     }
 
     function getPollName() public view returns (string memory pollName_) {

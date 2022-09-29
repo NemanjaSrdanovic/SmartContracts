@@ -52,15 +52,17 @@ export class GalleryService {
     return await contract['getVoters']()
   }
 
-  public async addVote(name: string, selectedOption: number): Promise<boolean> {
-    const contract = await GalleryService.getContract(true)
-    const transaction = await contract['vote'](
-        name,
-        selectedOption
-    )
-    const tx = await transaction.wait()
-
-    return tx.status === 1
+  public async addVote(name: string, selectedOption: number) {
+    try {
+      const contract = await GalleryService.getContract(true)
+      const transaction = await contract['vote'](
+          name,
+          selectedOption
+      )
+      const tx = await transaction.wait()
+    } catch (error:any) {
+      alert('Error: ' + error?.data?.message);
+    }
   }
 
   private static async getContract(bySigner=false) {

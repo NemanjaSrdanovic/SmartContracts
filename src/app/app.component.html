@@ -1,10 +1,12 @@
-  <span>Smart Contract Votah</span>
+<div class="p-4">
+  <h3>Smart Contract Votah</h3>
 
-  <div>
-    <button mat-button routerLink="/chair-person" routerLinkActive="active">Chair Person</button>
-    <button mat-button routerLink="/vote" routerLinkActive="active">Vote</button>
+  <div class="my-3">
+    <button class="btn" [class]="getPathName().indexOf('chair-person') >= 0 ? 'btn-primary' : 'btn-secondary'" routerLink="/chair-person" routerLinkActive="active">Chair Person</button>
+    <button class="btn" [class]="getPathName().indexOf('vote') >= 0 ? 'btn-primary' : 'btn-secondary'" routerLink="/vote" routerLinkActive="active">Vote</button>
   </div>
 
   <main>
     <router-outlet></router-outlet>
   </main>
+</div>

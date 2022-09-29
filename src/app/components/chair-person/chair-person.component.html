@@ -1,29 +1,36 @@
 <div *ngIf="!pollName">
-  <div>Start new poll</div>
+  <h4>Start new poll</h4>
   <div>
-    <label>Poll name:</label>
-    <input #pollName />
+    <div class="input-group mb-3">
+      <input #pollName type="text" class="form-control" placeholder="Poll name" aria-label="Name"
+             aria-describedby="basic-addon1">
+    </div>
   </div>
   <div *ngIf="newPollName">
-    <label>Option name:</label>
-    <input #optionName />
-    <button mat-button (click)="addOption()">Add Option</button>
-    <button mat-button (click)="startPoll()" [disabled]="options.length < 2">Start Voting Now!</button>
-    <div *ngFor="let option of options">
-      {{option}}
+    <div class="input-group mb-3">
+      <input #optionName type="text" class="form-control" placeholder="Option name" aria-label="Name"
+             aria-describedby="basic-addon1" (keyup.enter)="addOption()">
+    </div>
+    <button class="btn btn-primary" (click)="addOption()">Add Option</button>
+    <button class="btn btn-secondary" (click)="startPoll()" [disabled]="options.length < 2">Start Voting Now!</button>
+    <div class="my-3">
+      <div *ngFor="let option of options; let index = index">
+        {{index + 1 + ': ' + option}}
+      </div>
     </div>
   </div>
 </div>
 
 <div *ngIf="pollName">
-  <button mat-button (click)="closePoll()">Close Poll</button>
-  <div class="p-5">
+  <h4>{{'Active poll: ' + pollName}}</h4>
+  <button class="btn btn-primary" (click)="closePoll()">Close Poll</button>
+  <div class="my-3">
     <div *ngFor="let proposal of proposals">
       {{proposal.name + ': ' + proposal.voteCount}}
     </div>
   </div>
 
-  <div class="p-5">
+  <div class="my-3">
     <div *ngFor="let vote of votes">
       {{vote.name + ': ' + getName(vote.vote)}}
     </div>
