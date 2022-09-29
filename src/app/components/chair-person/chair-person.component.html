@@ -1,20 +1,31 @@
-<div *ngIf="!pollActive">
-  <label>Option name:</label>
-  <input #optionName />
-  <button mat-button (click)="addOption()">Add Option</button>
-  <button mat-button (click)="startPoll()" [disabled]="options.length < 2">Start Voting Now!</button>
-  <div *ngFor="let option of options">
-    {{option}}
+<div *ngIf="!pollName">
+  <div>Start new poll</div>
+  <div>
+    <label>Poll name:</label>
+    <input #pollName />
+  </div>
+  <div *ngIf="newPollName">
+    <label>Option name:</label>
+    <input #optionName />
+    <button mat-button (click)="addOption()">Add Option</button>
+    <button mat-button (click)="startPoll()" [disabled]="options.length < 2">Start Voting Now!</button>
+    <div *ngFor="let option of options">
+      {{option}}
+    </div>
   </div>
 </div>
 
-<div *ngIf="pollActive">
+<div *ngIf="pollName">
   <button mat-button (click)="closePoll()">Close Poll</button>
-  <div *ngFor="let proposal of proposals">
-    {{proposal.name + ': ' + getName(proposal.voteCount)}}
+  <div class="p-5">
+    <div *ngFor="let proposal of proposals">
+      {{proposal.name + ': ' + proposal.voteCount}}
+    </div>
   </div>
 
-  <div *ngFor="let vote of votes">
-    {{vote.name + ': ' + getName(vote.vote)}}
+  <div class="p-5">
+    <div *ngFor="let vote of votes">
+      {{vote.name + ': ' + getName(vote.vote)}}
+    </div>
   </div>
 </div>

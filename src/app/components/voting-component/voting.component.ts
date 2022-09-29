@@ -14,6 +14,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class VotingComponent implements OnInit {
 
 
+    public pollName: string;
     public proposals: any[] = [];
     public selectedProposal: any;
     public username: string;
@@ -33,6 +34,7 @@ export class VotingComponent implements OnInit {
     }
 
     async getProposals() {
+        this.pollName = await this.gallery.getPollName();
         this.proposals = await this.gallery.getProposals();
     }
 

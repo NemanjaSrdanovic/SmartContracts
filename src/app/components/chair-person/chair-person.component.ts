@@ -8,8 +8,10 @@ import {GalleryService} from "../../services/gallery.service";
 })
 export class ChairPersonComponent implements DoCheck {
 
-  public pollActive: boolean;
+  public pollName: string;
+  public newPollName: string;
 
+  @ViewChild('pollName') newPollNameElement: ElementRef;
   @ViewChild('optionName') optionName: ElementRef;
 
   public options: string[] = [];
@@ -22,6 +24,7 @@ export class ChairPersonComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
+    this.newPollName = this.newPollNameElement?.nativeElement.value;
     if (!this.polling) {
       this.pollAll();
     }
@@ -38,8 +41,8 @@ export class ChairPersonComponent implements DoCheck {
   async pollAll() {
     this.polling = true;
     try {
-      this.pollActive = await this.galleryService.getPollActive();
-      if (this.pollActive) {
+      this.pollName = await this.galleryService.getPollName();
+      if (this.pollName) {
         this.proposals = await this.galleryService.getProposalsWithVotes();
         this.votes = await this.galleryService.getVotes();
       }
@@ -57,7 +60,9 @@ export class ChairPersonComponent implements DoCheck {
 
   async startPoll() {
     try {
-      await this.galleryService.startPoll(this.options);
+      await this.galleryService.startPoll(this.newPollName, this.options);
+      this.newPollNameElement.nativeElement.value = null;
+      this.options = [];
     } catch (error) {
       alert('Error:' + error);
     }
@@ -66,7 +71,7 @@ export class ChairPersonComponent implements DoCheck {
   async closePoll() {
     try {
       await this.galleryService.closePoll();
-      this.pollActive = false;
+      this.pollName = '';
     } catch (error) {
       alert('Error:' + error);
     }

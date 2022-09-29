@@ -9,15 +9,16 @@ import detectEthereumProvider from "@metamask/detect-provider";
 })
 export class GalleryService {
 
-  public async getPollActive(): Promise<boolean> {
+  public async getPollName(): Promise<string> {
     const contract = await GalleryService.getContract(true)
 
-    return await contract['pollIsActive']()
+    return await contract['getPollName']()
   }
 
-  public async startPoll(options: string[]): Promise<boolean> {
+  public async startPoll(name: string, options: string[]): Promise<boolean> {
     const contract = await GalleryService.getContract(true)
     const transaction = await contract['newPoll'](
+      name,
       options
     )
     const tx = await transaction.wait()
