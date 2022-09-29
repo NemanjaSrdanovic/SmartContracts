@@ -61,7 +61,7 @@ export class ChairPersonComponent implements DoCheck {
   async startPoll() {
     try {
       await this.galleryService.startPoll(this.newPollName, this.options);
-      this.newPollNameElement.nativeElement.value = null;
+      this.newPollName = '';
       this.options = [];
     } catch (error) {
       alert('Error:' + error);

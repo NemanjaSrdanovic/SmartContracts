@@ -18,8 +18,8 @@ export class GalleryService {
   public async startPoll(name: string, options: string[]): Promise<boolean> {
     const contract = await GalleryService.getContract(true)
     const transaction = await contract['newPoll'](
-      name,
-      options
+      options,
+      name
     )
     const tx = await transaction.wait()
 
