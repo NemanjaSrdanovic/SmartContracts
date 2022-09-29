@@ -3,7 +3,7 @@
 
   <div class="my-3">
     <button class="btn" [class]="getPathName().indexOf('chair-person') >= 0 ? 'btn-primary' : 'btn-secondary'" routerLink="/chair-person" routerLinkActive="active">Chair Person</button>
-    <button class="btn" [class]="getPathName().indexOf('vote') >= 0 ? 'btn-primary' : 'btn-secondary'" routerLink="/vote" routerLinkActive="active">Vote</button>
+    <button style="margin-left: 0.75rem" class="btn" [class]="getPathName().indexOf('vote') >= 0 ? 'btn-primary' : 'btn-secondary'" routerLink="/vote" routerLinkActive="active">Vote</button>
   </div>
 
   <main>
