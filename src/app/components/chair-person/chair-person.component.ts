@@ -46,8 +46,8 @@ export class ChairPersonComponent implements DoCheck {
         this.proposals = await this.galleryService.getProposalsWithVotes();
         this.votes = await this.galleryService.getVotes();
       }
-    } catch (error) {
-      alert('Error:' + error);
+    } catch (error: any) {
+      alert('Error: ' + error?.data?.message);
     }
     setTimeout(() => {
       this.polling = false;
@@ -63,8 +63,8 @@ export class ChairPersonComponent implements DoCheck {
       await this.galleryService.startPoll(this.newPollName, this.options);
       this.newPollName = '';
       this.options = [];
-    } catch (error) {
-      alert('Error:' + error);
+    } catch (error: any) {
+      alert('Error: ' + error?.data?.message);
     }
   }
 
@@ -72,8 +72,8 @@ export class ChairPersonComponent implements DoCheck {
     try {
       await this.galleryService.closePoll();
       this.pollName = '';
-    } catch (error) {
-      alert('Error:' + error);
+    } catch (error: any) {
+      alert('Error: ' + error?.data?.message);
     }
   }
 }
