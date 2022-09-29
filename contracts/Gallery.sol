@@ -10,7 +10,7 @@ contract Poll {
 
     // This is a type for a single proposal.
     struct Proposal {
-        string  name;   // short name (up to 32 bytes)
+        string  name;   // short name
         uint voteCount; // number of accumulated votes
     }
 
@@ -25,10 +25,13 @@ contract Poll {
 
     Proposal[] public proposalsWithoutVotes;
 
+    string public pollName;
+
     /// Create a new ballot to choose one of `proposalNames`.
-    function newPoll(string[] memory proposalNames) public {
+    function newPoll(string[] memory proposalNames, string memory pollName_) public {
         require(pollCreator == address(0), "Poll already running");
         pollCreator = msg.sender;
+        pollName = pollName_;
 
         for (uint i = 0; i < proposalNames.length; i++) {
             proposals.push(Proposal({
@@ -68,7 +71,6 @@ contract Poll {
     function getProposals() public view
             returns (Proposal[] memory proposals_)
     {
-        require(msg.sender != pollCreator, "Voting not allowed for the poll creator");
         proposals_ = proposalsWithoutVotes;
     }
 
@@ -84,13 +86,14 @@ contract Poll {
         delete proposalsWithoutVotes;
         delete proposals;
         delete pollCreator;
+        delete pollName;
     }
 
-    function pollIsActive() public view returns (bool active) {
+    function getPollName() public view returns (string memory pollName_) {
         if (pollCreator != address(0)) {
-            return true;
+            return pollName;
         } else {
-            return false;
+            return "";
         }
     }
 
